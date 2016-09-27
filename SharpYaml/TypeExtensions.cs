@@ -138,6 +138,9 @@ namespace SharpYaml
 				sb.Append(declaringTypeName);
 			}
 			// type
+		    var isArray = type.IsArray;
+		    if (isArray)
+                type = type.GetElementType();
 			sb.Append(type.Name);
 			// generic arguments
 			if (type.IsGenericType)
@@ -152,6 +155,8 @@ namespace SharpYaml
 				}
 				sb.Append("]]");
 			}
+		    if (isArray)
+		        sb.Append("[]");
 			// assembly
 			if (appendAssemblyName)
 				sb.Append(",").Append(GetShortAssemblyName(type.Assembly));
