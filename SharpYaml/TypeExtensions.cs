@@ -111,6 +111,13 @@ namespace SharpYaml
 		/// <param name="type">The type.</param>
 		/// <returns>The assembly qualified name of the type, but without the assembly version or public token.</returns>
 		/// <exception cref="InvalidOperationException">Unable to get an assembly qualified name for type.</exception>
+		/// <example>
+		///     <list type="bullet">
+		///         <item><c>typeof(string).GetShortAssemblyQualifiedName(); // System.String,mscorlib</c></item>
+		///         <item><c>typeof(string[]).GetShortAssemblyQualifiedName(); // System.String[],mscorlib</c></item>
+		///         <item><c>typeof(List&lt;string&gt;).GetShortAssemblyQualifiedName(); // System.Collection.Generics.List`1[[System.String,mscorlib]],mscorlib</c></item>
+		///     </list>
+		/// </example>
 		public static string GetShortAssemblyQualifiedName(this Type type)
 		{
 			if (type.AssemblyQualifiedName == null)
@@ -138,9 +145,9 @@ namespace SharpYaml
 				sb.Append(declaringTypeName);
 			}
 			// type
-		    var isArray = type.IsArray;
-		    if (isArray)
-                type = type.GetElementType();
+			var isArray = type.IsArray;
+			if (isArray)
+				type = type.GetElementType();
 			sb.Append(type.Name);
 			// generic arguments
 			if (type.IsGenericType)
@@ -155,8 +162,8 @@ namespace SharpYaml
 				}
 				sb.Append("]]");
 			}
-		    if (isArray)
-		        sb.Append("[]");
+			if (isArray)
+				sb.Append("[]");
 			// assembly
 			if (appendAssemblyName)
 				sb.Append(",").Append(GetShortAssemblyName(type.Assembly));
