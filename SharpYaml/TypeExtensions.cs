@@ -154,10 +154,10 @@ namespace SharpYaml
 			{
 				sb.Append("[[");
 				var genericArguments = type.GetGenericArguments();
-				DoGetShortAssemblyQualifiedName(genericArguments[0], sb);
-				for (var i = 1; i < genericArguments.Length; i++)
+				for (var i = 0; i < genericArguments.Length; i++)
 				{
-					sb.Append("],[");
+					if (i > 0)
+						sb.Append("],[");
 					DoGetShortAssemblyQualifiedName(genericArguments[i], sb);
 				}
 				sb.Append("]]");
